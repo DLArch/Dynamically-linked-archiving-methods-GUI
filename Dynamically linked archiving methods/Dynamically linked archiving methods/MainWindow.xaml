@@ -16,7 +16,7 @@
             <RadioButton x:Name="radioButton5" Content="Haffman codes" Margin="0,100,0,40"/>
         </Grid>
         <Label x:Name="label" Content="Выбор метода сжатия"/>
-        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Drop="treeView_Drop" AllowDrop="True" KeyDown="treeView_KeyDown"/>
+        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Drop="treeView_Drop" AllowDrop="True" KeyDown="treeView_KeyDown" MouseDoubleClick="treeView_MouseDoubleClick"/>
         <TextBox x:Name="textBox" Height="23" Canvas.Left="160" TextWrapping="Wrap" Text="TextBox" Canvas.Top="161" Width="357" KeyDown="textBox_KeyDown"/>
         <Button x:Name="button1" Content="Задать путь" Canvas.Left="439" Canvas.Top="190" Width="78" Click="button1_Click"/>
         <Button x:Name="button2" Content="Сбросить" Canvas.Left="360" Canvas.Top="190" Width="75" Click="button2_Click"/>
