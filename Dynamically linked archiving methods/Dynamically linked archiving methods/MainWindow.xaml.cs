@@ -28,6 +28,39 @@ namespace Dynamically_linked_archiving_methods
         {
             InitializeComponent();
             this.textBox.Text = System.IO.Directory.GetCurrentDirectory();
+            //this.treeView.ItemTemplate.DataType = "{x:Type example:Drive}" ItemsSource = "{Binding Path=Children}";
+        }
+
+        
+
+        public void treeMakerHelper(string Path)
+        {
+            
+        }
+
+        public void treeMaker(string Path)
+        {
+            foreach (string Disc in System.IO.Directory.GetLogicalDrives())
+            {
+                this.treeView.Items.Add(new TreeVeiwEllementBase(Disc));
+            }
+            for (int i = 1; i <= this.treeView.Items.Count-1; i++)
+            {
+                if (((TreeVeiwEllementBase)this.treeView.Items[i]).Path == string.Concat(Path.TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar)) + System.IO.Path.DirectorySeparatorChar)
+                {
+                    foreach (string EllPath in System.IO.Directory.GetFileSystemEntries(Path))
+                    {
+                        try
+                        {
+                            ((TreeVeiwEllementBase)this.treeView.Items[i]).Children.Add(new TreeVeiwEllementBase(EllPath));
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -46,10 +79,12 @@ namespace Dynamically_linked_archiving_methods
             else
                 System.Windows.Forms.MessageBox.Show("Путь не существует. Укажите другой путь");
             this.treeView.Items.Clear();
-            foreach (string x in System.IO.Directory.GetFileSystemEntries(System.IO.Directory.GetCurrentDirectory()))
-            {
-                this.treeView.Items.Add(x);
-            }
+            this.treeView.Items.Add(this.textBox.Text);
+            treeMaker(System.IO.Directory.GetCurrentDirectory());
+            //foreach (string Path in System.IO.Directory.GetFileSystemEntries(System.IO.Directory.GetCurrentDirectory()))
+            //{
+            //    this.treeView.Items.Add(new TreeVeiwEllementBase(Path, null));
+            //}
             //this.treeView.SetValue(new DependencyPropertyKey(), this.textBox.Text.Where(x => x == System.IO.Path.DirectorySeparatorChar).Count());
         }
 
@@ -107,7 +142,7 @@ namespace Dynamically_linked_archiving_methods
         private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
-                this.textBox.Text = (String)this.treeView.SelectedItem;
+                this.textBox.Text = ((TreeVeiwEllementBase)this.treeView.SelectedItem).Path;
             this.button1_Click(sender, new System.Windows.RoutedEventArgs());
         }
     }
