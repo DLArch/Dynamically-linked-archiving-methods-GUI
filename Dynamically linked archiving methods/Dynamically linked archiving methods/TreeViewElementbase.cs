@@ -35,6 +35,19 @@ namespace Dynamically_linked_archiving_methods
         public Elementbase()
         {
             Name = "Undefined";
+            DirectoryChecker(Path);
+        }
+        /// <summary>
+        /// Прогружает все папки на компьютере
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="key"></param>
+        public Elementbase(string path, int key)
+        {
+            if (key == 1)
+            {
+                this.TreeMaker();
+            }
         }
         /// <summary>
         /// При True вызывает Elementbase.CreateDrives()
@@ -49,34 +62,35 @@ namespace Dynamically_linked_archiving_methods
         }
         public void TreeMakerPath(string Path)
         {
-            //System.IntPtr Point;
-            //Point.ToPointer
+            
         }
         /// <summary>
         /// Метод, определяющий, папка ли перед ним
-        /// TODO: Изменить алгоритм отображения папок
         /// </summary>
         /// <param name="Path"></param>
-        private void DirectoryChecker(string Path)
+        public void DirectoryChecker(string Path)
         {
-            if (System.IO.Directory.Exists(Path))
+            if (System.IO.Directory.Exists(this.Path))
             {
-                this.Elements = new ObservableCollection<Elementbase>();
-                string[] Directories_;
-                try
+                if (this.Elements == null || this.Elements.Count == 0)
                 {
-                    Directories_ = System.IO.Directory.GetDirectories(this.Path);
+                    this.Elements = new ObservableCollection<Elementbase>();
                 }
-                catch
+                this.Elements.Add(new Elementbase());
+                //this.ElementCreator();
+            }
+        }
+        public void TreeMakerPathLocally()
+        {
+            if (System.IO.Directory.Exists(this.Path) || System.IO.File.Exists(this.Path))
+            {
+                foreach (string x in System.IO.Directory.EnumerateFileSystemEntries(this.Path))
                 {
-                    Directories_ = new string[1];
-                }
-                foreach (string x in Directories_)
-                {
-                    if (System.IO.Directory.Exists(x))
+                    if (this.Elements == null)
                     {
-                        this.Elements.Add(new Dynamically_linked_archiving_methods.Elementbase(x));
+                        this.ElementCreator();
                     }
+                    this.Elements.Add(new Elementbase(x));
                 }
             }
         }
@@ -85,19 +99,27 @@ namespace Dynamically_linked_archiving_methods
         /// </summary>
         public void TreeMaker()
         {
-            
+
         }
         /// <summary>
         /// Добавляет в поле Elements данные о дисках
         /// </summary>
         public void CreateDrives()
         {
-            this.Elements = new ObservableCollection<Elementbase>();
+            this.ElementCreator();
             foreach (System.IO.DriveInfo x in System.IO.DriveInfo.GetDrives())
             {
-                this.Elements.Add(new Elementbase(x.Name, x.Name));
+                if (System.IO.Directory.Exists(x.Name))
+                {
+                    ObservableCollection<Elementbase> g = new ObservableCollection<Elementbase>();
+                    g.Add(new Elementbase());
+                    this.Elements.Add(new Elementbase(x.Name, x.Name, g));
+                }
             }
         }
+        /// <summary>
+        /// Создает пустую колекцию
+        /// </summary>
         public void ElementCreator()
         {
             this.Elements = new ObservableCollection<Elementbase>();
