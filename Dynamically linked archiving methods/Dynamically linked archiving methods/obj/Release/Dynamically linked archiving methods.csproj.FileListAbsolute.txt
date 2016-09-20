@@ -12,3 +12,6 @@ C:\Users\Oleg\Documents\Visual Studio 2015\Projects\Dynamically linked archiving
 C:\Users\Oleg\Documents\Visual Studio 2015\Projects\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.csproj.GenerateResource.Cache
 C:\Users\Oleg\Documents\Visual Studio 2015\Projects\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.exe
 C:\Users\Oleg\Documents\Visual Studio 2015\Projects\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.pdb
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\Dynamically linked archiving methods.exe.config
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.exe
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.pdb

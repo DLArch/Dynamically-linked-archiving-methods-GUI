@@ -26,3 +26,4 @@ C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically 
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Debug\Dynamically linked archiving methods.g.resources
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Debug\Dynamically_linked_archiving_methods.Properties.Resources.resources
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Debug\Dynamically linked archiving methods.csproj.GenerateResource.Cache
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Debug\GeneratedInternalTypeHelper.g.cs
