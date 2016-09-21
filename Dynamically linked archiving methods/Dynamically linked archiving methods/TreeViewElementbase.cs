@@ -20,7 +20,7 @@ namespace Dynamically_linked_archiving_methods
         {
             this.Name = Name;
             this.Path = Path;
-            DirectoryChecker(Path);
+            this.ElementCreatorWithElement();
         }
         /// <summary>
         /// Выделяет имя из пути и заполняет поля
@@ -30,19 +30,19 @@ namespace Dynamically_linked_archiving_methods
         {
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
-            DirectoryChecker(Path);
+            this.ElementCreatorWithElement();
         }
         public Elementbase()
         {
             Name = "Undefined";
-            DirectoryChecker(Path);
         }
         /// <summary>
         /// Прогружает все папки на компьютере
+        /// Not for use
         /// </summary>
         /// <param name="path"></param>
         /// <param name="key"></param>
-        public Elementbase(string path, int key)
+        private Elementbase(string path, int key)
         {
             if (key == 1)
             {
@@ -60,37 +60,63 @@ namespace Dynamically_linked_archiving_methods
                 CreateDrives();
             }
         }
-        public void TreeMakerPath(string Path)
-        {
-            
-        }
         /// <summary>
         /// Метод, определяющий, папка ли перед ним
         /// </summary>
         /// <param name="Path"></param>
-        public void DirectoryChecker(string Path)
+        public void DirectoryChecker()
         {
-            if (System.IO.Directory.Exists(this.Path))
+            if (System.IO.Directory.Exists(this.Path) || System.IO.File.Exists(this.Path))
             {
-                if (this.Elements == null || this.Elements.Count == 0)
+                if (this.Elements != null)
                 {
-                    this.Elements = new ObservableCollection<Elementbase>();
+                    this.Elements.Clear();
                 }
-                this.Elements.Add(new Elementbase());
-                //this.ElementCreator();
+                try
+                {
+                    foreach (string x in System.IO.Directory.EnumerateFileSystemEntries(this.Path))
+                    {
+                        if (this.Elements == null)
+                        {
+                            this.ElementCreator();
+                        }
+                        this.Elements.Add(new Elementbase(x));
+                    }
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("Отказано в доступе");
+                }
             }
         }
+        /// <summary>
+        /// Проверяет папки по пути this.Path
+        /// TODO: 
+        /// 1) Убрать try...catch
+        /// 2) Создать свой диалог при ошибках
+        /// </summary>
         public void TreeMakerPathLocally()
         {
             if (System.IO.Directory.Exists(this.Path) || System.IO.File.Exists(this.Path))
             {
-                foreach (string x in System.IO.Directory.EnumerateFileSystemEntries(this.Path))
+                if (this.Elements != null)
                 {
-                    if (this.Elements == null)
+                    this.Elements.Clear();
+                }
+                try
+                {
+                    foreach (string x in System.IO.Directory.EnumerateFileSystemEntries(this.Path))
                     {
-                        this.ElementCreator();
+                        if (this.Elements == null)
+                        {
+                            this.ElementCreator();
+                        }
+                        this.Elements.Add(new Elementbase(x));
                     }
-                    this.Elements.Add(new Elementbase(x));
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("Отказано в доступе");
                 }
             }
         }
@@ -111,9 +137,31 @@ namespace Dynamically_linked_archiving_methods
             {
                 if (System.IO.Directory.Exists(x.Name))
                 {
-                    ObservableCollection<Elementbase> g = new ObservableCollection<Elementbase>();
-                    g.Add(new Elementbase());
-                    this.Elements.Add(new Elementbase(x.Name, x.Name, g));
+                    this.Elements.Add(new Elementbase(x.Name, x.Name));
+                }
+            }
+        }
+        /// <summary>
+        /// Помечает папку, как содержащую эллементы
+        /// </summary>
+        public void ElementCreatorWithElement()
+        {
+            if (System.IO.Directory.Exists(this.Path))
+            {
+                try
+                {
+                    if (this.Elements == null || this.Elements.Count == 0)
+                    {
+                        this.ElementCreator();
+                    }
+                    if  (System.IO.Directory.EnumerateFileSystemEntries(this.Path).Count() != 0)
+                    {
+                        this.Elements.Add(new Elementbase());
+                    }                    
+                }
+                catch
+                {
+
                 }
             }
         }

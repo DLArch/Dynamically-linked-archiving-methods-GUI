@@ -9,14 +9,14 @@
         Title="MainWindow" Height="255" Width="889" MinWidth="540" MinHeight="255">
     <Window.Resources>
         <ObjectDataProvider x:Key="RootFolderDataProvider">
-            
+
         </ObjectDataProvider>
 
         <HierarchicalDataTemplate DataType = "{x:Type local:Elementbase}" ItemsSource = "{Binding Path=Elements}">
             <TextBlock Text="{Binding Path=Name}"/>
         </HierarchicalDataTemplate>
     </Window.Resources>
-    
+
     <Canvas>
         <Grid Height="160" Canvas.Left="5" Canvas.Top="25" Width="150">
             <RadioButton x:Name="radioButton" Content="LZ77" IsChecked="True" Margin="0,0,0,140"/>
@@ -26,13 +26,13 @@
             <RadioButton x:Name="radioButton4" Content="Shefon-Phano" Margin="0,80,0,60"/>
             <RadioButton x:Name="radioButton5" Content="Haffman codes" Margin="0,100,0,40"/>
         </Grid>
-        
+
         <Label x:Name="label" Content="Выбор метода сжатия"/>
 
-        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="24" SelectedItemChanged="treeView_SelectedItemChanged" MouseDoubleClick="treeView_MouseDoubleClick">
+        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" SelectedItemChanged="treeView_SelectedItemChanged" MouseDoubleClick="treeView_MouseDoubleClick">
             <TreeViewItem ItemsSource="{Binding Path=Path, Source={StaticResource RootFolderDataProvider}}" Header="Обозреватель папок"/>
         </TreeView>
-        
+
         <TextBox x:Name="textBox" Height="23" Canvas.Left="160" TextWrapping="Wrap" Text="TextBox" Width="357"/>
         <Button x:Name="button1" Content="Задать путь" Canvas.Left="439" Canvas.Top="190" Width="78"/>
         <Button x:Name="button2" Content="Сбросить" Canvas.Left="360" Canvas.Top="190" Width="75"/>

@@ -57,14 +57,12 @@ namespace Dynamically_linked_archiving_methods
 
         private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            //((Elementbase)this.treeView.SelectedItem).Elements.Clear();
-            ((Elementbase)this.treeView.SelectedItem).TreeMakerPathLocally();
+            ((Elementbase)this.treeView.SelectedItem).DirectoryChecker();
         }
 
         private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //((Elementbase)this.treeView.SelectedItem).Elements.Clear();
-            ((Elementbase)this.treeView.SelectedItem).TreeMakerPathLocally();
+            ((Elementbase)this.treeView.SelectedItem).DirectoryChecker();
         }
     }
 }
