@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -24,6 +25,18 @@ namespace Dynamically_linked_archiving_methods
         }
         /// <summary>
         /// Выделяет имя из пути и заполняет поля
+        /// И особое Icon
+        /// </summary>
+        /// <param name="Path"></param>
+        public Elementbase(string Path, System.Drawing.Icon Icon)
+        {
+            this.Path = Path;
+            this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(this.Path);
+            this.ElementCreatorWithElement();
+        }
+        /// <summary>
+        /// Выделяет имя из пути и заполняет поля
         /// </summary>
         /// <param name="Path"></param>
         public Elementbase(string Path)
@@ -42,11 +55,24 @@ namespace Dynamically_linked_archiving_methods
         /// </summary>
         /// <param name="path"></param>
         /// <param name="key"></param>
-        private Elementbase(string path, int key)
+        private Elementbase(string Path, int key)
         {
-            if (key == 1)
+            switch (key)
             {
-                this.TreeMaker();
+                case 0:
+                    this.Path = Path;
+                    this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
+                    if (System.IO.File.Exists(Path))
+                    {
+                        this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Path);
+                    }
+                    this.ElementCreatorWithElement();
+                    break;
+                case 1:
+                    this.TreeMaker();
+                    break;
+                default:
+                    break;
             }
         }
         /// <summary>
@@ -128,11 +154,26 @@ namespace Dynamically_linked_archiving_methods
 
         }
         /// <summary>
+        /// Добавляет специальные папки, набор которых нстроен будет из файла(пока в основной программе)
+        /// </summary>
+        /// <param name="Folder"></param>
+        public void CreateSpecialDirectoris(System.Environment.SpecialFolder Folder)
+        {
+            if (this.Elements == null)
+            {
+                this.ElementCreator();
+            }
+            this.Elements.Add(new Elementbase(System.Environment.GetFolderPath(Folder), (int)ConstructorMode.MakeIcon));
+        }
+        /// <summary>
         /// Добавляет в поле Elements данные о дисках
         /// </summary>
         public void CreateDrives()
         {
-            this.ElementCreator();
+            if (this.Elements == null)
+            {
+                this.ElementCreator();
+            }
             foreach (System.IO.DriveInfo x in System.IO.DriveInfo.GetDrives())
             {
                 if (System.IO.Directory.Exists(x.Name))
@@ -184,6 +225,14 @@ namespace Dynamically_linked_archiving_methods
         /// Путь к файлу/папке
         /// </summary>
         public string Path
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Иконка приложения
+        /// </summary>
+        public System.Drawing.Icon Icon
         {
             get;
             set;

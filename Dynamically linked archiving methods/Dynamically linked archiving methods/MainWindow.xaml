@@ -38,6 +38,6 @@
         <Button x:Name="button2" Content="Сбросить" Canvas.Left="360" Canvas.Top="190" Width="75"/>
         <Button x:Name="button3" Content="Архивировать" Canvas.Left="160" Canvas.Top="190" Width="91"/>
         <Button x:Name="button4" Content="Разархивировать" Canvas.Left="255" Canvas.Top="190" Width="100"/>
-        <ListView x:Name="listView" Height="184" Width="325" Canvas.Left="530" Canvas.Top="1" Drop="listView_Drop" AllowDrop="True"/>
+        <ListView x:Name="listView" Height="185" Width="325" Canvas.Left="530" Drop="listView_Drop" AllowDrop="True"/>
     </Canvas>
 </Window>

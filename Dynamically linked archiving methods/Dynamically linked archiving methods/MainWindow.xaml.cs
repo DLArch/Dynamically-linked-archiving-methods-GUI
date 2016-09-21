@@ -29,11 +29,19 @@ namespace Dynamically_linked_archiving_methods
             /// <summary>
             /// Root - первый элемент для TreeView(корень дерева)
             /// </summary>
-            Elementbase root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
-            root.CreateDrives();
-            //DataContext = root;
             this.textBox.Text = System.IO.Directory.GetCurrentDirectory();
-            this.treeView.Items.Add(root);
+
+
+            /// <summary>
+            /// TODO: Выделить создание структуры в отдельный поток
+            /// </summary>
+            /*System.Threading.Thread RootDelegate = new System.Threading.Thread(() =>
+            {*/
+                Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
+                this.AddSpecialFolders(ref Root);
+                Root.CreateDrives();
+                this.treeView.Items.Add(Root);
+            //});
         }
 
         /// <summary>
@@ -58,6 +66,20 @@ namespace Dynamically_linked_archiving_methods
         private void treeView_Expanded(object sender, RoutedEventArgs e)
         {
             ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
+        }
+        private void AddSpecialFolders(ref Elementbase Root)
+        {
+            if (Root.Elements == null)
+            {
+                Root.ElementCreator();
+            }
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.Favorites);
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.MyVideos);
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.MyDocuments);
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.MyPictures);
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.MyMusic);
+            Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.DesktopDirectory);
+            //Root.CreateSpecialDirectoris(System.Environment.SpecialFolder);
         }
     }
 }
