@@ -13,7 +13,7 @@
         </ObjectDataProvider>
 
         <HierarchicalDataTemplate DataType = "{x:Type local:Elementbase}" ItemsSource = "{Binding Path=Elements}">
-            <TextBlock Text="{Binding Path=Name}"/>
+            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}"/>
         </HierarchicalDataTemplate>
     </Window.Resources>
 
@@ -29,7 +29,7 @@
 
         <Label x:Name="label" Content="Выбор метода сжатия"/>
 
-        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" SelectedItemChanged="treeView_SelectedItemChanged" MouseDoubleClick="treeView_MouseDoubleClick">
+        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" TreeViewItem.Expanded="treeView_Expanded">
             <TreeViewItem ItemsSource="{Binding Path=Path, Source={StaticResource RootFolderDataProvider}}" Header="Обозреватель папок"/>
         </TreeView>
 

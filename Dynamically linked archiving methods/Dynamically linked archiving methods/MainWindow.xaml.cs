@@ -55,14 +55,9 @@ namespace Dynamically_linked_archiving_methods
             }
         }
 
-        private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void treeView_Expanded(object sender, RoutedEventArgs e)
         {
-            ((Elementbase)this.treeView.SelectedItem).DirectoryChecker();
-        }
-
-        private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ((Elementbase)this.treeView.SelectedItem).DirectoryChecker();
+            ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
         }
     }
 }
