@@ -5,6 +5,25 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamically linked archiving methods", "Dynamically linked archiving methods\Dynamically linked archiving methods.csproj", "{8E953B49-B4A6-4DDF-AD00-3CE8E1E59377}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{EC5A988F-E940-453F-9BFA-865C60AD3997}"
+	ProjectSection(SolutionItems) = preProject
+		Dynamically linked archiving methods\MainWindow.xaml = Dynamically linked archiving methods\MainWindow.xaml
+		Dynamically linked archiving methods\MainWindow.xaml.cs = Dynamically linked archiving methods\MainWindow.xaml.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{8FAC0A33-B6C8-405F-8B1C-ECCDFF7DAA4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{C71521EC-3787-4D6A-8782-CCF140F56B9F}"
+	ProjectSection(SolutionItems) = preProject
+		Dynamically linked archiving methods\ConstructorMode(For TVEB).cs = Dynamically linked archiving methods\ConstructorMode(For TVEB).cs
+		Dynamically linked archiving methods\TreeViewElementbase.cs = Dynamically linked archiving methods\TreeViewElementbase.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{F611F30A-BE17-4575-ABAF-E5D53A1C5A6A}"
+	ProjectSection(SolutionItems) = preProject
+		Dynamically linked archiving methods\res\load_error.bmp = Dynamically linked archiving methods\res\load_error.bmp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

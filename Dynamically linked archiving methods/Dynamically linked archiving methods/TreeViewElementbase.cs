@@ -28,11 +28,11 @@ namespace Dynamically_linked_archiving_methods
         /// И особое Icon
         /// </summary>
         /// <param name="Path"></param>
-        public Elementbase(string Path, System.Drawing.Icon Icon)
+        public Elementbase(string Path, System.Drawing.Bitmap Icon)
         {
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
-            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(this.Path);
+            this.Icon = Icon;
             this.ElementCreatorWithElement();
         }
         /// <summary>
@@ -44,6 +44,15 @@ namespace Dynamically_linked_archiving_methods
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
             this.ElementCreatorWithElement();
+            /*try
+            {
+                this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(this.Path);
+            }
+            catch
+            {
+
+            }
+            */
         }
         public Elementbase()
         {
@@ -55,20 +64,34 @@ namespace Dynamically_linked_archiving_methods
         /// </summary>
         /// <param name="path"></param>
         /// <param name="key"></param>
-        private Elementbase(string Path, int key)
+        private Elementbase(string Path, ConstructorMode key)
         {
             switch (key)
             {
-                case 0:
+                case ConstructorMode.MakeIcon:
                     this.Path = Path;
                     this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
                     if (System.IO.File.Exists(Path))
                     {
-                        this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Path);
+                        //System.Windows.Forms.MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
+                        if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
+                        {
+                            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
+                        }
+                        string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
+                        try
+                        {
+                            System.IO.File.Create(PathTIF);
+                            System.Drawing.Icon.ExtractAssociatedIcon(Path).ToBitmap().Save(PathTIF);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     this.ElementCreatorWithElement();
                     break;
-                case 1:
+                case ConstructorMode.MakeAllTree:
                     this.TreeMaker();
                     break;
                 default:
@@ -106,7 +129,7 @@ namespace Dynamically_linked_archiving_methods
                         {
                             this.ElementCreator();
                         }
-                        this.Elements.Add(new Elementbase(x));
+                        this.Elements.Add(new Elementbase(x, ConstructorMode.MakeIcon));
                     }
                 }
                 catch
@@ -232,7 +255,7 @@ namespace Dynamically_linked_archiving_methods
         /// <summary>
         /// Иконка приложения
         /// </summary>
-        public System.Drawing.Icon Icon
+        public System.Drawing.Bitmap Icon
         {
             get;
             set;

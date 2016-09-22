@@ -13,7 +13,10 @@
         </ObjectDataProvider>
 
         <HierarchicalDataTemplate DataType = "{x:Type local:Elementbase}" ItemsSource = "{Binding Path=Elements}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}"/>
+            <Grid>
+                <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}"/>
+                <Image Width="20" Height="20" Source="{Binding Path=Icon}"/>
+            </Grid>
         </HierarchicalDataTemplate>
     </Window.Resources>
 
