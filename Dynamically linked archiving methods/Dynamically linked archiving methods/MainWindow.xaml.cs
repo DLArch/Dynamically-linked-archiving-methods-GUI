@@ -37,7 +37,8 @@ namespace Dynamically_linked_archiving_methods
             /// </summary>
             /*System.Threading.Thread RootDelegate = new System.Threading.Thread(() =>
             {*/
-                Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
+                Elementbase Root = new Elementbase("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", ConstructorMode.MakeIcon, "Мой компьютер");
+                
                 this.AddSpecialFolders(ref Root);
                 Root.CreateDrives();
                 this.treeView.Items.Add(Root);
@@ -65,8 +66,15 @@ namespace Dynamically_linked_archiving_methods
 
         private void treeView_Expanded(object sender, RoutedEventArgs e)
         {
-            ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
+            if (!System.IO.File.Exists(((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).Path))
+            {
+                ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
+            }
         }
+        /// <summary>
+        /// Добавляет специальные папки для быстрого доступа
+        /// </summary>
+        /// <param name="Root"></param>
         private void AddSpecialFolders(ref Elementbase Root)
         {
             if (Root.Elements == null)
@@ -80,6 +88,30 @@ namespace Dynamically_linked_archiving_methods
             Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.MyMusic);
             Root.CreateSpecialDirectoris(System.Environment.SpecialFolder.DesktopDirectory);
             //Root.CreateSpecialDirectoris(System.Environment.SpecialFolder);
+        }
+        /// <summary>
+        /// Событие двойного клика для перехода
+        /// на следующий уровень вложенности
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ///Был вылет при клике на картинку
+            try
+            {
+                if (System.IO.File.Exists(((Elementbase)((TextBlock)e.OriginalSource).DataContext).Path))
+                {
+                    MessageBox.Show(((Elementbase)((TextBlock)e.OriginalSource).DataContext).Path);
+                }
+            }
+            catch
+            {
+                if (System.IO.File.Exists(((Elementbase)((Image)e.OriginalSource).DataContext).Path))
+                {
+                    MessageBox.Show(((Elementbase)((Image)e.OriginalSource).DataContext).Path);
+                }
+            }
         }
     }
 }

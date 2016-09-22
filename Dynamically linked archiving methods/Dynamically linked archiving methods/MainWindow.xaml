@@ -14,8 +14,8 @@
 
         <HierarchicalDataTemplate DataType = "{x:Type local:Elementbase}" ItemsSource = "{Binding Path=Elements}">
             <Grid>
-                <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}"/>
-                <Image Width="20" Height="20" Source="{Binding Path=Icon}"/>
+                <Image Width="15" Height="15" Source="{Binding Path=Icon}" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" Margin="15,0,0,0"/>
             </Grid>
         </HierarchicalDataTemplate>
     </Window.Resources>
@@ -32,7 +32,7 @@
 
         <Label x:Name="label" Content="Выбор метода сжатия"/>
 
-        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" TreeViewItem.Expanded="treeView_Expanded">
+        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" TreeViewItem.Expanded="treeView_Expanded" MouseDoubleClick="treeView_MouseDoubleClick">
             <TreeViewItem ItemsSource="{Binding Path=Path, Source={StaticResource RootFolderDataProvider}}" Header="Обозреватель папок"/>
         </TreeView>
 

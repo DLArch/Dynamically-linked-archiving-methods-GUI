@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dynamically_linked_archiving_methods
 {
-    enum ConstructorMode : int
+    public enum ConstructorMode : int
     {
         MakeIcon = 0,
         MakeAllTree = 1,
