@@ -32,7 +32,7 @@ namespace Dynamically_linked_archiving_methods
         {
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
-            //this.Icon = Icon;
+            this.Icon = Icon;
             this.ElementCreatorWithElement();
         }
         /// <summary>
@@ -60,7 +60,7 @@ namespace Dynamically_linked_archiving_methods
         }
         /// <summary>
         /// Прогружает все папки на компьютере
-        /// TODO: Проверку на наличие файла
+        /// Not for use
         /// </summary>
         /// <param name="path"></param>
         /// <param name="key"></param>
@@ -81,11 +81,8 @@ namespace Dynamically_linked_archiving_methods
                         string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
                         try
                         {
-                            if (!System.IO.File.Exists(PathTIF))
-                            {
-                                System.Drawing.Icon.ExtractAssociatedIcon(Path).ToBitmap().Save(PathTIF);
-                            }
-                            this.Icon = new System.Uri(PathTIF);
+                            System.IO.File.Create(PathTIF);
+                            System.Drawing.Icon.ExtractAssociatedIcon(Path).ToBitmap().Save(PathTIF);
                         }
                         catch
                         {
@@ -258,7 +255,7 @@ namespace Dynamically_linked_archiving_methods
         /// <summary>
         /// Иконка приложения
         /// </summary>
-        public System.Uri Icon
+        public System.Drawing.Bitmap Icon
         {
             get;
             set;
