@@ -87,27 +87,60 @@ namespace Dynamically_linked_archiving_methods
                     {
                         this.Name = Name;
                     }
-                    if (System.IO.File.Exists(Path))
-                    {
+                    /*if (System.IO.File.Exists(Path))
+                    {*/
                         //System.Windows.Forms.MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
-                        if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
-                        {
-                            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
-                        }
-                        string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
-                        try
-                        {
-                            if (!System.IO.File.Exists(PathTIF))
-                            {
-                                new DMaker().DIMaker(Path).ToBitmap().Save(PathTIF); //System.Drawing.Icon.ExtractAssociatedIcon(Path).ToBitmap().Save(PathTIF);
-                            }
-                            this.Icon = new System.Uri(PathTIF);
-                        }
-                        catch
-                        {
-
-                        }
+                    if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
+                    {
+                        System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
                     }
+                    string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar;
+                    if (System.IO.File.Exists(this.Path))
+                    {
+                        PathTIF += string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
+                    }
+                    else
+                    {
+                        PathTIF += @"Folder";
+                    }
+                    if (!System.IO.Directory.Exists(PathTIF))
+                    {
+                        System.IO.Directory.CreateDirectory(PathTIF);
+                    }
+                    PathTIF += System.IO.Path.DirectorySeparatorChar;
+                    //try
+                    //{
+                        MessageBox.Show(PathTIF);
+                        System.Drawing.Icon CIcon = new DMaker().DIMaker(Path);
+                        bool EquFiles = false;
+                        int Counter = 0;
+                        foreach (string x in System.IO.Directory.EnumerateFiles(PathTIF))
+                        {
+                            ///Вылетает при сравнении
+                            if (new System.Drawing.Icon(x) == CIcon)
+                            {
+                                PathTIF = x + Counter.ToString();
+                                EquFiles = true;
+                                break;
+                            }
+                            Counter++;
+                        }
+                        if (!System.IO.File.Exists(PathTIF + System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString()))
+                        {
+                            if (!EquFiles)
+                            {
+                                PathTIF += System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString();
+                                /*new DMaker().DIMaker(Path).*/CIcon.ToBitmap().Save(PathTIF);
+                            }
+                        }
+                        MessageBox.Show(PathTIF);
+                        this.Icon = new System.Uri(PathTIF);
+                    //}
+                    //catch
+                    //{
+
+                    //}
+                    /*}
                     else
                     {
                         if (System.IO.Directory.Exists(Path))
@@ -130,7 +163,7 @@ namespace Dynamically_linked_archiving_methods
 
                             }
                         }
-                    }
+                    }*/
                     this.ElementCreatorWithElement();
                     break;
                 case ConstructorMode.MakeAllTree:
@@ -343,7 +376,12 @@ namespace Dynamically_linked_archiving_methods
 
             SHGetFileInfo(Path, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
 
-            return System.Drawing.Icon.FromHandle(shinfo.hIcon);
+            ///Вылетает
+            if (!(File.Exists(Path) || Directory.Exists(Path)))
+            {
+                return System.Drawing.Icon.FromHandle(shinfo.hIcon);
+            }
+            return null;
         }
 
         public DMaker()
@@ -352,4 +390,3 @@ namespace Dynamically_linked_archiving_methods
         }
     }
 }
-

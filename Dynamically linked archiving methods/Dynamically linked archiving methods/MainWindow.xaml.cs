@@ -98,6 +98,7 @@ namespace Dynamically_linked_archiving_methods
         private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ///Был вылет при клике на картинку
+            ///Заменить Try на is и as
             try
             {
                 if (System.IO.File.Exists(((Elementbase)((TextBlock)e.OriginalSource).DataContext).Path))
