@@ -74,7 +74,7 @@ namespace Dynamically_linked_archiving_methods
         ///
         /// TODO: Засунуть весь метод в отдельный поток с минимальным приоритетом
         ///
-        public Elementbase(string Path, ConstructorMode key, string Name = "")
+        public Elementbase(string Path, ConstructorMode key, string Name = "", string Icon = "")
         {
             this.Icon = DefaultIcon;
             switch (key)
@@ -107,7 +107,7 @@ namespace Dynamically_linked_archiving_methods
                         System.IO.Directory.CreateDirectory(PathTIF);
                     }
                     PathTIF += System.IO.Path.DirectorySeparatorChar;
-                    System.Drawing.Icon CIcon = new DMaker().DIMaker(Path);
+                    System.Drawing.Icon CIcon = new DMaker().DIMaker(Path, true);
                     bool EquFiles = false;
                     if (CIcon != null)
                     {
@@ -140,7 +140,17 @@ namespace Dynamically_linked_archiving_methods
                     this.ElementCreatorWithElement();
                     break;
                 case ConstructorMode.MakeAllTree:
-                    this.TreeMaker();
+                    this.Icon = new System.Uri(Icon);
+                    this.Path = Path;
+                    if (Name == "")
+                    {
+                        this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
+                    }
+                    else
+                    {
+                        this.Name = Name;
+                    }
+                    //this.TreeMaker();
                     break;
                 default:
                     break;
@@ -366,26 +376,45 @@ namespace Dynamically_linked_archiving_methods
             public string szTypeName;
         };
 
-        [DllImport("shell32.dll")]
+        [DllImport("Kernel32.dll")]
+        public extern static IntPtr LoadLibrary(string libName);
+        [DllImport("User32.dll")]
+        public extern static IntPtr LoadIcon(IntPtr libHandle, int lpIconName);
+        IntPtr lib = LoadLibrary("shell32.dll");
 
+        [DllImport("shell32.dll")]
         public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, uint uFlags);
 
-        public System.Drawing.Icon DIMaker(string Path)
+        public System.Drawing.Icon DIMaker(string Path, bool mode)
         {
             SHFILEINFO shinfo = new SHFILEINFO();
 
             SHGetFileInfo(Path, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
             
-            if (File.Exists(Path) || Directory.Exists(Path))
+            
+
+            if ((File.Exists(Path) || Directory.Exists(Path)) && mode)
             {
                 return System.Drawing.Icon.FromHandle(shinfo.hIcon);
             }
             else
             {
-                return null;
+                if (!mode)
+                {
+                    return System.Drawing.Icon.FromHandle(LoadIcon(LoadLibrary("shell32.dll"), 16));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
+        /*public System.Drawing.Icon DIMaker(string Path, bool mode)
+        {
+            return System.Drawing.Icon.FromHandle(LoadIcon(LoadLibrary("shell32.dll"), 16));
+        }
+        */
         public DMaker()
         {
 

@@ -33,7 +33,10 @@ namespace Dynamically_linked_archiving_methods
             /// <summary>
             /// TODO: Выделить создание структуры в отдельный поток
             /// </summary>
-            Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", AppDomain.CurrentDomain.BaseDirectory + @"Mc.jpg");
+            MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
+            new DMaker().DIMaker(@"::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", false).ToBitmap().Save(AppDomain.CurrentDomain.BaseDirectory + "Df");
+            Elementbase Root = new Elementbase("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", ConstructorMode.MakeAllTree, "Мой компьютер", AppDomain.CurrentDomain.BaseDirectory + "Df");
+            //Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", AppDomain.CurrentDomain.BaseDirectory + );
             this.AddSpecialFolders(ref Root);
             Root.CreateDrives();
             this.treeView.Items.Add(Root);
