@@ -30,19 +30,13 @@ namespace Dynamically_linked_archiving_methods
             /// Root - первый элемент для TreeView(корень дерева)
             /// </summary>
             this.textBox.Text = System.IO.Directory.GetCurrentDirectory();
-
-
             /// <summary>
             /// TODO: Выделить создание структуры в отдельный поток
             /// </summary>
-            /*System.Threading.Thread RootDelegate = new System.Threading.Thread(() =>
-            {*/
-                Elementbase Root = new Elementbase("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", ConstructorMode.MakeIcon, "Мой компьютер");
-                
-                this.AddSpecialFolders(ref Root);
-                Root.CreateDrives();
-                this.treeView.Items.Add(Root);
-            //});
+            Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", AppDomain.CurrentDomain.BaseDirectory + @"Mc.jpg");
+            this.AddSpecialFolders(ref Root);
+            Root.CreateDrives();
+            this.treeView.Items.Add(Root);
         }
 
         /// <summary>
@@ -63,12 +57,24 @@ namespace Dynamically_linked_archiving_methods
                 }
             }
         }
-
+        /// <summary>
+        /// Событие раскрытия эллемента treeview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// TODO: Убрать try...catch
         private void treeView_Expanded(object sender, RoutedEventArgs e)
         {
-            if (!System.IO.File.Exists(((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).Path))
+            try
             {
-                ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
+                if (!System.IO.File.Exists(((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).Path))
+                {
+                    ((Elementbase)((TreeViewItem)e.OriginalSource).DataContext).DirectoryChecker();
+                }
+            }
+            catch
+            {
+
             }
         }
         /// <summary>
@@ -108,11 +114,31 @@ namespace Dynamically_linked_archiving_methods
             }
             catch
             {
-                if (System.IO.File.Exists(((Elementbase)((Image)e.OriginalSource).DataContext).Path))
+                try
                 {
-                    MessageBox.Show(((Elementbase)((Image)e.OriginalSource).DataContext).Path);
+                    if (System.IO.File.Exists(((Elementbase)((Image)e.OriginalSource).DataContext).Path))
+                    {
+                        MessageBox.Show(((Elementbase)((Image)e.OriginalSource).DataContext).Path);
+                    }
+                }
+                catch
+                {
+
                 }
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.listView.Items.IndexOf(((Elementbase)this.treeView.SelectedItem).Path) == -1)
+            {
+                this.listView.Items.Add(((Elementbase)this.treeView.SelectedItem).Path);
+            }
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            this.listView.Items.Clear();
         }
     }
 }

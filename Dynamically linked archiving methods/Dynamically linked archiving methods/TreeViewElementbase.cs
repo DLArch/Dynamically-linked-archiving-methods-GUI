@@ -30,6 +30,13 @@ namespace Dynamically_linked_archiving_methods
             this.Name = Name;
             this.ElementCreatorWithElement();
         }
+        public Elementbase(string Name, string Path, string Icon)
+        {
+            this.Icon = new Uri(Icon);
+            this.Path = Path;
+            this.Name = Name;
+            this.ElementCreatorWithElement();
+        }
         /// <summary>
         /// Выделяет имя из пути и заполняет поля
         /// И особое Icon
@@ -119,9 +126,13 @@ namespace Dynamically_linked_archiving_methods
                         if (!System.IO.File.Exists(PathTIF + System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString()))
                         {
                             PathTIF += System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString();
-                            if (!(CIcon == null))
+                            if (CIcon != null)
                             {
                                 CIcon.ToBitmap().Save(PathTIF);
+                            }
+                            else
+                            {
+                                PathTIF = DefaultIcon.AbsolutePath;
                             }
                         }
                     }
@@ -239,7 +250,8 @@ namespace Dynamically_linked_archiving_methods
             {
                 if (System.IO.Directory.Exists(x.Name))
                 {
-                    this.Elements.Add(new Elementbase(x.Name, x.Name));
+                    //this.Elements.Add(new Elementbase(x.Name, x.Name));
+                    this.Elements.Add(new Elementbase(x.Name, ConstructorMode.MakeIcon, x.Name));
                 }
             }
         }
@@ -330,9 +342,11 @@ namespace Dynamically_linked_archiving_methods
             get;
             set;
         }
-        private System.Uri DefaultIcon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"load_error");
+        private System.Uri DefaultIcon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"load_error.bmp");
     }
-
+    /// <summary>
+    /// It's magic. Don't touch!
+    /// </summary>
     public class DMaker
     {
         //Constants flags for SHGetFileInfo 
@@ -361,13 +375,15 @@ namespace Dynamically_linked_archiving_methods
             SHFILEINFO shinfo = new SHFILEINFO();
 
             SHGetFileInfo(Path, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
-
-            ///Вылетает
+            
             if (File.Exists(Path) || Directory.Exists(Path))
             {
                 return System.Drawing.Icon.FromHandle(shinfo.hIcon);
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         public DMaker()

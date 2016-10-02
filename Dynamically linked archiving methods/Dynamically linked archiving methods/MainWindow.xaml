@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Dynamically_linked_archiving_methods"
         xmlns:Properties="clr-namespace:Dynamically_linked_archiving_methods.Properties" x:Class="Dynamically_linked_archiving_methods.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="255" Width="889" MinWidth="540" MinHeight="255">
+        Title="MainWindow" Height="367" Width="909" MinWidth="540" MinHeight="255">
     <Window.Resources>
         <ObjectDataProvider x:Key="RootFolderDataProvider">
 
@@ -32,15 +32,17 @@
 
         <Label x:Name="label" Content="Выбор метода сжатия"/>
 
-        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="357" Canvas.Top="25" TreeViewItem.Expanded="treeView_Expanded" MouseDoubleClick="treeView_MouseDoubleClick">
+        <TreeView x:Name="treeView" Height="160" Canvas.Left="160" Width="355" Canvas.Top="25" TreeViewItem.Expanded="treeView_Expanded" MouseDoubleClick="treeView_MouseDoubleClick">
             <TreeViewItem ItemsSource="{Binding Path=Path, Source={StaticResource RootFolderDataProvider}}" Header="Обозреватель папок"/>
         </TreeView>
 
-        <TextBox x:Name="textBox" Height="23" Canvas.Left="160" TextWrapping="Wrap" Text="TextBox" Width="357"/>
+        <TextBox x:Name="textBox" Height="23" Canvas.Left="160" TextWrapping="Wrap" Text="TextBox" Width="355"/>
         <Button x:Name="button1" Content="Задать путь" Canvas.Left="439" Canvas.Top="190" Width="78"/>
         <Button x:Name="button2" Content="Сбросить" Canvas.Left="360" Canvas.Top="190" Width="75"/>
         <Button x:Name="button3" Content="Архивировать" Canvas.Left="160" Canvas.Top="190" Width="91"/>
         <Button x:Name="button4" Content="Разархивировать" Canvas.Left="255" Canvas.Top="190" Width="100"/>
-        <ListView x:Name="listView" Height="185" Width="325" Canvas.Left="530" Drop="listView_Drop" AllowDrop="True"/>
+        <ListView x:Name="listView" Height="185" Width="330" Canvas.Left="555" Drop="listView_Drop" AllowDrop="True"/>
+        <Button x:Name="button" Content=">" Canvas.Left="520" Canvas.Top="60" Width="30" Click="button_Click"/>
+        <Button x:Name="button_Copy" Content="\/" Canvas.Left="520" Canvas.Top="140" Width="30" Click="button_Copy_Click"/>
     </Canvas>
 </Window>
