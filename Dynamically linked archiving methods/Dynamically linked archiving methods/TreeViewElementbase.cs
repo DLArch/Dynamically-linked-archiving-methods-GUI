@@ -18,16 +18,16 @@ namespace Dynamically_linked_archiving_methods
     {
         public Elementbase(string Name, string Path, ObservableCollection<Elementbase> Elements)
         {
-            this.Name = Name;
+            this.Icon = DefaultIcon;
             this.Path = Path;
+            this.Name = Name;
             this.Elements = Elements;
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
         }
         public Elementbase(string Name, string Path)
         {
-            this.Name = Name;
+            this.Icon = DefaultIcon;
             this.Path = Path;
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
+            this.Name = Name;
             this.ElementCreatorWithElement();
         }
         /// <summary>
@@ -37,9 +37,9 @@ namespace Dynamically_linked_archiving_methods
         /// <param name="Path"></param>
         public Elementbase(string Path, System.Drawing.Bitmap Icon)
         {
+            this.Icon = DefaultIcon;
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
             this.ElementCreatorWithElement();
         }
         /// <summary>
@@ -48,22 +48,14 @@ namespace Dynamically_linked_archiving_methods
         /// <param name="Path"></param>
         public Elementbase(string Path)
         {
+            this.Icon = DefaultIcon;
             this.Path = Path;
             this.Name = string.Concat(Path.Reverse().TakeWhile(x => x != System.IO.Path.DirectorySeparatorChar).Reverse());
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
             this.ElementCreatorWithElement();
-            /*try
-            {
-                this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(this.Path);
-            }
-            catch
-            {
-
-            }
-            */
         }
         public Elementbase()
         {
+            this.Icon = DefaultIcon;
             Name = "Undefined";
         }
         /// <summary>
@@ -72,9 +64,12 @@ namespace Dynamically_linked_archiving_methods
         /// </summary>
         /// <param name="path"></param>
         /// <param name="key"></param>
+        ///
+        /// TODO: Засунуть весь метод в отдельный поток с минимальным приоритетом
+        ///
         public Elementbase(string Path, ConstructorMode key, string Name = "")
         {
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
+            this.Icon = DefaultIcon;
             switch (key)
             {
                 case ConstructorMode.MakeIcon:
@@ -87,50 +82,50 @@ namespace Dynamically_linked_archiving_methods
                     {
                         this.Name = Name;
                     }
-                    if (System.IO.File.Exists(Path))
+                    if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
                     {
-                        //System.Windows.Forms.MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
-                        if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
-                        {
-                            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
-                        }
-                        string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
-                        try
-                        {
-                            if (!System.IO.File.Exists(PathTIF))
-                            {
-                                new DMaker().DIMaker(Path).ToBitmap().Save(PathTIF); //System.Drawing.Icon.ExtractAssociatedIcon(Path).ToBitmap().Save(PathTIF);
-                            }
-                            this.Icon = new System.Uri(PathTIF);
-                        }
-                        catch
-                        {
-
-                        }
+                        System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
+                    }
+                    string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar;
+                    if (System.IO.File.Exists(this.Path))
+                    {
+                        PathTIF += string.Concat(this.Name.Reverse().TakeWhile(x => (x + "") != ".").Reverse());
                     }
                     else
                     {
-                        if (System.IO.Directory.Exists(Path))
+                        PathTIF += @"Folder";
+                    }
+                    if (!System.IO.Directory.Exists(PathTIF))
+                    {
+                        System.IO.Directory.CreateDirectory(PathTIF);
+                    }
+                    PathTIF += System.IO.Path.DirectorySeparatorChar;
+                    System.Drawing.Icon CIcon = new DMaker().DIMaker(Path);
+                    bool EquFiles = false;
+                    if (CIcon != null)
+                    {
+                        foreach (string x in System.IO.Directory.EnumerateFiles(PathTIF))
                         {
-                            if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res"))
+                            if (EquallTTwoIcons(new System.Drawing.Bitmap(x), CIcon.ToBitmap()))
                             {
-                                System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + @"res");
-                            }
-                            string PathTIF = AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "Folder";
-                            try
-                            {
-                                if (!System.IO.File.Exists(PathTIF))
-                                {
-                                    new DMaker().DIMaker(Path).ToBitmap().Save(PathTIF);
-                                }
-                                this.Icon = new System.Uri(PathTIF);
-                            }
-                            catch
-                            {
-
+                                PathTIF = x;
+                                EquFiles = true;
+                                break;
                             }
                         }
                     }
+                    if (!EquFiles)
+                    {
+                        if (!System.IO.File.Exists(PathTIF + System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString()))
+                        {
+                            PathTIF += System.IO.Directory.EnumerateFiles(PathTIF).Count().ToString();
+                            if (!(CIcon == null))
+                            {
+                                CIcon.ToBitmap().Save(PathTIF);
+                            }
+                        }
+                    }
+                    this.Icon = new System.Uri(PathTIF);
                     this.ElementCreatorWithElement();
                     break;
                 case ConstructorMode.MakeAllTree:
@@ -146,7 +141,7 @@ namespace Dynamically_linked_archiving_methods
         /// <param name="CreateDrivesBool"></param>
         public Elementbase(bool CreateDrivesBool)
         {
-            this.Icon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"res" + System.IO.Path.DirectorySeparatorChar + "load_error");
+            this.Icon = DefaultIcon;
             if (CreateDrivesBool)
             {
                 CreateDrives();
@@ -280,6 +275,30 @@ namespace Dynamically_linked_archiving_methods
             this.Elements = new ObservableCollection<Elementbase>();
         }
         /// <summary>
+        /// Возвращает true, если файлы одинаковы.
+        /// </summary>
+        /// <param name="FirstIcon"></param>
+        /// <param name="SecondIcon"></param>
+        /// <returns></returns>
+        public bool EquallTTwoIcons(System.Drawing.Bitmap FirstIcon, System.Drawing.Bitmap SecondIcon)
+        {
+            if (!((FirstIcon.Width == SecondIcon.Width) && (FirstIcon.Height == SecondIcon.Height)))
+            {
+                return false;
+            }
+            for (int istr = 0; istr < FirstIcon.Width; istr++)
+            {
+                for (int istl = 0; istl < FirstIcon.Height; istl++)
+                {
+                    if (FirstIcon.GetPixel(istr, istl) != SecondIcon.GetPixel(istr, istl))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        /// <summary>
         /// Имя файла/папки
         /// </summary>
         public string Name
@@ -311,7 +330,7 @@ namespace Dynamically_linked_archiving_methods
             get;
             set;
         }
-        const string DefaultIcon = "::{}";
+        private System.Uri DefaultIcon = new System.Uri(AppDomain.CurrentDomain.BaseDirectory + @"load_error");
     }
 
     public class DMaker
@@ -343,7 +362,12 @@ namespace Dynamically_linked_archiving_methods
 
             SHGetFileInfo(Path, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_LARGEICON);
 
-            return System.Drawing.Icon.FromHandle(shinfo.hIcon);
+            ///Вылетает
+            if (File.Exists(Path) || Directory.Exists(Path))
+            {
+                return System.Drawing.Icon.FromHandle(shinfo.hIcon);
+            }
+            return null;
         }
 
         public DMaker()
@@ -352,4 +376,3 @@ namespace Dynamically_linked_archiving_methods
         }
     }
 }
-
