@@ -1,3 +1,0 @@
-# Игнорирование папки с .ico
-# Igore directory with .ico files
-\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Debug\res*
