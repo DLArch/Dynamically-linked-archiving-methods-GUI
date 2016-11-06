@@ -33,7 +33,6 @@ namespace Dynamically_linked_archiving_methods
             /// <summary>
             /// TODO: Выделить создание структуры в отдельный поток
             /// </summary>
-            MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory);
             new DMaker().DIMaker(@"::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", false).ToBitmap().Save(AppDomain.CurrentDomain.BaseDirectory + "Df");
             Elementbase Root = new Elementbase("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", ConstructorMode.MakeAllTree, "Мой компьютер", AppDomain.CurrentDomain.BaseDirectory + "Df");
             //Elementbase Root = new Elementbase("Мой компьютер", "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", AppDomain.CurrentDomain.BaseDirectory + );
@@ -142,6 +141,49 @@ namespace Dynamically_linked_archiving_methods
         private void button_Copy_Click(object sender, RoutedEventArgs e)
         {
             this.listView.Items.Clear();
+        }
+        /// <summary>
+        /// LZ77
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.radioButton.IsPressed)
+            {
+                this.Method = 0;
+            }
+        }
+        /// <summary>
+        /// LZW
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton2_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.radioButton.IsPressed)
+            {
+                this.Method = 2;
+            }
+        }
+
+        public UInt16 Method
+        {
+            get;
+            set;
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            DLA.Archive_creator Archive = null;
+            foreach (/*System.Windows.Controls.ItemCollection*/string File in this.listView.Items)
+            {
+                if (Archive == null)
+                {
+                    Archive = new DLA.Archive_creator(File.ToString(), System.Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "arch.dla", this.Method);
+                    continue;
+                }
+            }
         }
     }
 }

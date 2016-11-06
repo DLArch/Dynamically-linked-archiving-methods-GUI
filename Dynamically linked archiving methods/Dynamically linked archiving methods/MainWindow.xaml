@@ -22,9 +22,9 @@
 
     <Canvas>
         <Grid Height="160" Canvas.Left="5" Canvas.Top="25" Width="150">
-            <RadioButton x:Name="radioButton" Content="LZ77" IsChecked="True" Margin="0,0,0,140"/>
+            <RadioButton x:Name="radioButton" Content="LZ77" IsChecked="True" Margin="0,0,0,140" Click="radioButton_Click"/>
             <RadioButton x:Name="radioButton1" Content="LZ78" Margin="0,20,0,120"/>
-            <RadioButton x:Name="radioButton2" Content="LZW" Margin="0,40,0,100"/>
+            <RadioButton x:Name="radioButton2" Content="LZW" Margin="0,40,0,100" Click="radioButton2_Click"/>
             <RadioButton x:Name="radioButton3" Content="RLE" Margin="0,60,0,80"/>
             <RadioButton x:Name="radioButton4" Content="Shefon-Phano" Margin="0,80,0,60"/>
             <RadioButton x:Name="radioButton5" Content="Haffman codes" Margin="0,100,0,40"/>
@@ -39,7 +39,7 @@
         <TextBox x:Name="textBox" Height="23" Canvas.Left="160" TextWrapping="Wrap" Text="TextBox" Width="355"/>
         <Button x:Name="button1" Content="Задать путь" Canvas.Left="439" Canvas.Top="190" Width="78"/>
         <Button x:Name="button2" Content="Сбросить" Canvas.Left="360" Canvas.Top="190" Width="75"/>
-        <Button x:Name="button3" Content="Архивировать" Canvas.Left="160" Canvas.Top="190" Width="91"/>
+        <Button x:Name="button3" Content="Архивировать" Canvas.Left="160" Canvas.Top="190" Width="91" Click="button3_Click"/>
         <Button x:Name="button4" Content="Разархивировать" Canvas.Left="255" Canvas.Top="190" Width="100"/>
         <ListView x:Name="listView" Height="185" Width="330" Canvas.Left="555" Drop="listView_Drop" AllowDrop="True"/>
         <Button x:Name="button" Content=">" Canvas.Left="520" Canvas.Top="60" Width="30" Click="button_Click"/>
