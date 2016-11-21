@@ -15,3 +15,20 @@ C:\Users\Oleg\Documents\Visual Studio 2015\Projects\Dynamically linked archiving
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\Dynamically linked archiving methods.exe.config
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.exe
 C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.pdb
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\Dynamically linked archiving methods.exe.config
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\Dynamically linked archiving methods.exe
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\Dynamically linked archiving methods.pdb
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\DLA.dll
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\bin\Release\DLA.pdb
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.csprojResolveAssemblyReference.cache
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\MainWindow.g.cs
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\App.g.cs
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods_MarkupCompile.cache
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods_MarkupCompile.lref
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\MainWindow.baml
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.g.resources
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically_linked_archiving_methods.Properties.Resources.resources
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.csproj.GenerateResource.Cache
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.exe
+C:\Users\Oleg\Documents\GitHub\Dynamically-linked-archiving-methods-GUI\Dynamically linked archiving methods\Dynamically linked archiving methods\obj\Release\Dynamically linked archiving methods.pdb
